@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spur Gear Design Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.shutterstock.com/shutterstock/photos/1197563437/display_1500/stock-vector-abstract-technology-background-1197563437.jpg');
+            background-size: cover;
+            background-position: center;
+            block-size: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container {
+            background-color: rgba(16, 15, 15, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            max-inline-size: 400px;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: #fffefe;
+            margin-block-end: 20px;
+        }
+
+        label {
+            color: #fffbfb;
+            font-weight: bold;
+            display: block;
+            margin-block-end: 5px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px;
+            inline-size: calc(100% - 20px);
+            box-sizing: border-box;
+            border: 2px solid #171616;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="number"]::placeholder {
+            color: #100f0f;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-block-start: 20px;
+            background-color: #df0000;
+            color: #fffafa;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            color: #ffffff;
+            margin-block-start: 20px;
+            text-align: start;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>Spur Gear Design Calculator</h2>
+        <label for="diametral_pitch">Enter Diametral Pitch:</label>
+        <input type="number" id="diametral_pitch" placeholder="Enter the values">
+        <br><br>
+        <label for="number_of_teeth">Enter Number of Teeth:</label>
+        <input type="number" id="number_of_teeth" placeholder="Enter the values">
+        <br><br>
+        <button onclick="calculate()">Calculate</button>
+        <button onclick="clearInputs()">Clear</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            var diametralPitch = parseFloat(document.getElementById('diametral_pitch').value);
+            var numberOfTeeth = parseInt(document.getElementById('number_of_teeth').value);
+
+            // Input validation
+            if (isNaN(diametralPitch) || isNaN(numberOfTeeth) || diametralPitch <= 0 || numberOfTeeth <= 0) {
+                alert("Please enter valid positive numbers for diametral pitch and number of teeth.");
+                return;
+            }
+
+            // Perform calculation
+            var pitchDiameter = numberOfTeeth / diametralPitch;
+            var circularPitch = Math.PI / diametralPitch;
+            var module = 25.4 / diametralPitch;
+            var pitchAngle = Math.atan(1 / diametralPitch) * (180 / Math.PI);
+            var addendum = 1 / diametralPitch;
+            var dedendum = 1.25 / diametralPitch;
+            var workingDepth = 2.25 / diametralPitch;
+            var wholeDepth = 2.5 / diametralPitch;
+
+            // Display results
+            document.getElementById('result').innerHTML = `
+                <p>Pitch Diameter: ${pitchDiameter.toFixed(2)}</p>
+                <p>Circular Pitch: ${circularPitch.toFixed(2)}</p>
+                <p>Module: ${module.toFixed(2)}</p>
+                <p>Pitch Angle: ${pitchAngle.toFixed(2)}</p>
+                <p>Addendum: ${addendum.toFixed(2)}</p>
+                <p>Dedendum: ${dedendum.toFixed(2)}</p>
+                <p>Working Depth: ${workingDepth.toFixed(2)}</p>
+                <p>Whole Depth: ${wholeDepth.toFixed(2)}</p>
+            `;
+        }
+
+        function clearInputs() {
+            document.getElementById('diametral_pitch').value = "";
+            document.getElementById('number_of_teeth').value = "";
+            document.getElementById('result').innerHTML = "";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
